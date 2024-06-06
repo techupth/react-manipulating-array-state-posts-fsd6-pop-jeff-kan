@@ -1,28 +1,46 @@
+import { useState } from "react";
+import { postData } from "../datas/data";
+
 function Posts() {
+  const [like, setLike] = useState(postData.map((data) => data.likes));
   return (
-    <div class="app-wrapper">
-      <h1 class="app-title">Posts</h1>
-      <div class="post-list">
-        <div class="post-item">
-          <div class="post-header">
-            <h2>Post Title #1</h2>
-            <div class="post-social-media-stats">
-              <span class="stats-topic">Likes: </span>
-              <span class="post-likes">10</span>
+    <div className="app-wrapper">
+      <h1 className="app-title">Posts</h1>
+      <div className="post-list">
+        {postData.map((data, index) => {
+          return (
+            <div className="post-item" key={data.id}>
+              <div className="post-header">
+                <h2>{data.title}</h2>
+                <div className="post-social-media-stats">
+                  <span className="stats-topic">Likes: </span>
+                  <span className="post-likes">{like[index]}</span>
+                </div>
+              </div>
+              <p className="post-content">{data.content}</p>
+              <div className="post-actions">
+                <button
+                  className="like-button"
+                  onClick={() => {
+                    setLike(like.toSpliced(index, 1, like[index] + 1));
+                  }}
+                >
+                  Like
+                </button>
+                <button
+                  className="dislike-button"
+                  onClick={() => {
+                    like[index] > 0
+                      ? setLike(like.toSpliced(index, 1, like[index] - 1))
+                      : alert("เราหยุดแล้ว ท่านยังไม่หยุดอีกหรือ");
+                  }}
+                >
+                  Dislike
+                </button>
+              </div>
             </div>
-          </div>
-          <p class="post-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            vel turpis vestibulum, aliquet ipsum vitae, auctor risus. Morbi
-            tincidunt, leo non molestie consectetur, elit libero faucibus
-            tellus, sed fringilla tortor libero sit amet odio. Maecenas sed ante
-            condimentum mauris euismod pellentesque eu eu justo...
-          </p>
-          <div class="post-actions">
-            <button class="like-button">Like</button>
-            <button class="dislike-button">Dislike</button>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </div>
   );
