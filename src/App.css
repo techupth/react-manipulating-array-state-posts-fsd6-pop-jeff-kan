@@ -40,6 +40,14 @@ body {
   align-items: center;
 }
 
+.set-post-function{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .post-item {
   font-size: 30px;
   color: var(--primary-color);
